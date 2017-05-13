@@ -1,0 +1,31 @@
+name: Grav Rest Contents
+version: 0.1.0
+description: Allow pages with dynamic contents from rest serrvice
+icon: plug
+author:
+  name: Andrea Schiona
+  email: andrea.schiona@gmail.com
+homepage: https://github.com/andrea-schiona/grav-plugin-grav-rest-contents
+demo: http://demo.yoursite.com
+keywords: grav, plugin, rest, dynamic
+#bugs: https://github.com/andrea-schiona/grav-plugin-grav-rest-contents/issues
+#docs: https://github.com/andrea-schiona/grav-plugin-grav-rest-contents/blob/develop/README.md
+license: MIT
+
+form:
+  validation: strict
+  fields:
+    enabled:
+      type: toggle
+      label: Plugin status
+      highlight: 1
+      default: 0
+      options:
+        1: Enabled
+        0: Disabled
+      validate:
+        type: bool
+    text_var:
+      type: text
+      label: Text Variable
+      help: Text to add to the top of a page
