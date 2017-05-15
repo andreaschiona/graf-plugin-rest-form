@@ -51,13 +51,13 @@ class RestFormPlugin extends Plugin
     public function onPageContentRaw(Event $e)
     {
         // Get a variable from the plugin configuration
-        $text = $this->grav['config']->get('plugins.grav-rest-form.text_var');
+        //$text = $this->grav['config']->get('plugins.rest-form.url');
 
         // Get the current raw content
         $content = $e['page']->getRawContent();
 
         // Prepend the output with the custom text and set back on the page
-        $e['page']->setRawContent($text . "\n\n" . $content);
+        //$e['page']->setRawContent($text . "\n\n" . $content);
     }
 
 	/**
@@ -74,7 +74,7 @@ class RestFormPlugin extends Plugin
         		switch($action) {
         			case 'rest':
 
-        				$service_url = $this->config->get('plugins.grav-rest-form.rest_server');
+        				$service_url = $params['url'];
                         $curl = curl_init($service_url);
                         foreach($params['fields'] as $field => $val) {
                             $postData[] = $field -> $_POST[$val];
