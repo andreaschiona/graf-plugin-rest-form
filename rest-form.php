@@ -8,7 +8,7 @@ use RocketTheme\Toolbox\Event\Event;
  * Class GravRestPlugin
  * @package Grav\Plugin
  */
-class GravRestContentsPlugin extends Plugin
+class RestFormPlugin extends Plugin
 {
 
     /**
@@ -51,7 +51,7 @@ class GravRestContentsPlugin extends Plugin
     public function onPageContentRaw(Event $e)
     {
         // Get a variable from the plugin configuration
-        $text = $this->grav['config']->get('plugins.grav-rest-contents.text_var');
+        $text = $this->grav['config']->get('plugins.grav-rest-form.text_var');
 
         // Get the current raw content
         $content = $e['page']->getRawContent();
@@ -74,7 +74,7 @@ class GravRestContentsPlugin extends Plugin
         		switch($action) {
         			case 'rest':
 
-        				$service_url = $this->config->get('plugins.grav-rest-contents.rest_server');
+        				$service_url = $this->config->get('plugins.grav-rest-form.rest_server');
                         $curl = curl_init($service_url);
                         foreach($params['fields'] as $field => $val) {
                             $postData[] = $field -> $_POST[$val];

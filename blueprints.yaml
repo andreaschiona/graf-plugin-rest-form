@@ -1,15 +1,15 @@
-name: Grav Rest Contents
+name: Rest Form
 version: 0.1.0
-description: Allow pages with dynamic contents from rest serrvice
+description: Allow call REST service with the contents of the form
 icon: plug
 author:
   name: Andrea Schiona
   email: andrea.schiona@gmail.com
-homepage: https://github.com/andrea-schiona/grav-plugin-grav-rest-contents
-demo: http://demo.yoursite.com
-keywords: grav, plugin, rest, dynamic
-#bugs: https://github.com/andrea-schiona/grav-plugin-grav-rest-contents/issues
-#docs: https://github.com/andrea-schiona/grav-plugin-grav-rest-contents/blob/develop/README.md
+homepage: https://github.com/andreaschiona/grav-plugin-rest-form
+#demo: http://demo.yoursite.com
+keywords: grav, plugin, rest, form
+bugs: https://github.com/andreaschiona/grav-plugin-rest-form/issues
+docs: https://github.com/andreaschiona/grav-plugin-rest-form/README.md
 license: MIT
 
 form:
