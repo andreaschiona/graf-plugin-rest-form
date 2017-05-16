@@ -38,13 +38,90 @@ enabled: true
 
 ## Usage
 
-**TODO**
+In a form page add the `rest` action as following:
+
+```yaml
+    process:
+       - rest:
+            url: http://host:port/resource
+            list: array_list_name
+```
+
+where
+- `url`: (_mandatory_) the url of the resource to call
+- `list`: (_optional_) the name of the object (array type) that wrapped the object
+
+### Example
+
+Following an example page `form.md` that invoke a REST service:
+
+```yaml
+    ---
+    title: Nuova categoria
+    
+    form:
+        name: insertcategory
+        #action: rest
+    
+        fields:
+            - name: name
+              label: Name
+              placeholder: The object name
+              autofocus: on
+              autocomplete: on
+              type: text
+              validate:
+                required: true
+    
+            - name: description
+              label: Description
+              placeholder: The object escription
+              type: text
+              validate:
+                required: true
+    
+        buttons:
+            - type: submit
+              value: Submit
+    
+        process:
+            - rest:
+                url: http://lccalhost:8080/res/object
+                list: objects
+    ---
+    
+    # Create Object By Rest Service FORM
+```
+
+The submit execute a `POST` request to uri `http://lccalhost:8080/res/object` and data:
+
+```JSON
+{ 
+  "objects": 
+	[
+		{
+		 "name": "<form name value>",
+		 "description": "<form description value>"
+		}
+	]
+}
+```
+
+If `rest` action don't have `list` param, the json produced is as following:
+
+```JSON
+{ 
+  "name": "<form name value>",
+  "description": "<form description value>"
+}
+```
+ 
 
 
 ## To Do
 
-- [1] Release the first version of the plugin;
-- [2] Complete this documentation;
-- [3] Create a docker image for test the plugin.
+- [1] Complete this documentation
+- [2] Create a docker image for test the plugin
+- [3] Support other methods (GET, PUT, DELETE)
 
 

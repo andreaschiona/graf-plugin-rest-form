@@ -68,40 +68,49 @@ class RestFormPlugin extends Plugin
     public function onFormProcessed(Event $event)
     {
         $form = $event['form'];
-                $action = $event['action'];
-                $params = $event['params'];
+        $action = $event['action'];
+        $params = $event['params'];
+        $vars = ['form' => $form];
 
-        		switch($action) {
-        			case 'rest':
+        switch($action) {
+            case 'rest':
 
-        				$service_url = $params['url'];
-                        $curl = curl_init($service_url);
-                        foreach($params['fields'] as $field => $val) {
-                            $postData[] = $field -> $_POST[$val];
-                        }
-                        curl_setopt_array($curl, array(
-                            CURLOPT_POST => TRUE,
-                            CURLOPT_RETURNTRANSFER => TRUE,
-                            CURLOPT_HTTPHEADER => array(
-                                'Content-Type: application/json'
-                            ),
-                            CURLOPT_POSTFIELDS => json_encode($postData)
-                        ));
+                //$curl_log = fopen("/var/log/curl.log", 'a'); // open file for READ and write
 
-                        $curl_response = curl_exec($curl);
-                        if ($curl_response === false) {
-                            $info = curl_getinfo($curl);
-                            curl_close($curl);
-                            die('error occured during curl exec. Additioanl info: ' . var_export($info));
-                        }
-                        curl_close($curl);
-                        $decoded = json_decode($curl_response);
-                        if (isset($decoded->response->status) && $decoded->response->status == 'ERROR') {
-                            die('error occured: ' . $decoded->response->errormessage);
-                        }
-                        echo 'response ok!';
-                        var_export($decoded->response);
-        			break;
-        		}
+                $service_url = $params['url'];
+                $curl = curl_init($service_url);
+
+                $list = $params['list'];
+                $req = $list == NULL ? $_POST['data'] : array($list => array($_POST['data'])); //$postData);
+
+                // DEBUG FILE
+                //file_put_contents("/var/log/curl_req.log", json_encode(($req)));
+
+                curl_setopt_array($curl, array(
+                    CURLOPT_POST => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_HTTPHEADER => array(
+                        'Content-Type: application/json'
+                    ),
+                    CURLOPT_POSTFIELDS => json_encode($req),
+                    CURLOPT_VERBOSE => true
+                ));
+
+                $curl_response = curl_exec($curl);
+                $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                if ($curl_response === false) {
+                    $info = curl_getinfo($curl);
+                    curl_close($curl);
+                    die('status: ' . $status . 'error occured during curl exec. Additional info: ' . var_export($info));
+                }
+                curl_close($curl);
+                $decoded = json_decode($curl_response);
+                if (isset($decoded->response->status) && $decoded->response->status == 'ERROR') {
+                    die('error occured: ' . $decoded->response->errormessage);
+                }
+                //echo 'response ok!';
+                //var_export($decoded->response);
+            break;
+        }
 	}
 }
