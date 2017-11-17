@@ -51,6 +51,9 @@ where
 - `url`: (_mandatory_) the url of the resource to call
 - `list`: (_optional_) the name of the object (array type) that wrapped the object
 
+
+See this [demo](http://gravtest.hostfree.pw/rest-form) page.
+
 ### Example
 
 Following an example page `form.md` that invoke a REST service:
